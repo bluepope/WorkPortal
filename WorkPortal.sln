@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkPortal", "WorkPortal\WorkPortal.csproj", "{7E326B54-D13C-40A2-B37E-60FB3A29CE00}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{B15756A3-8FDA-43DA-9C9B-90BB8BF7810F}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluePope.WorkPortal", "BluePope.WorkPortal\BluePope.WorkPortal.csproj", "{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7E326B54-D13C-40A2-B37E-60FB3A29CE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E326B54-D13C-40A2-B37E-60FB3A29CE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E326B54-D13C-40A2-B37E-60FB3A29CE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E326B54-D13C-40A2-B37E-60FB3A29CE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
