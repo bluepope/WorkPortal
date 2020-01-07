@@ -1,0 +1,66 @@
+﻿@page "/LoginTest"
+
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+@using Microsoft.AspNetCore.Authentication;
+@using Microsoft.AspNetCore.Authentication.Cookies;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor httpContextAccessor
+
+<AuthorizeView>
+    <Authorized>
+        <b>Hello, @context.User.Identity.Name!</b>
+        <a class="ml-md-auto btn btn-primary" href="/api/logout">Logout</a>
+    </Authorized>
+    <NotAuthorized>
+        <input type="text" placeholder="User Name" @bind="Username" />
+        &nbsp;&nbsp;
+        <input type="password" placeholder="Password" @bind="Password" />
+
+        <button class="btn btn-primary" @onclick="LoginProc">Blazor Code Login은 오류발생</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+<div class="alert alert-info">
+    굳이 Server Side 로 Login 을 한다면 HttpClient로 로그인 후 Cookie를 복사해야할 것 같음.. 근데 굳이 그럴 필요가?
+</div>
+
+<div>@_error</div>
+
+@code {
+    string Username = ""; //blazor login 테스트를 위한 임시 변수 굳이 필요하진 않음
+    string Password = ""; //blazor login 테스트를 위한 임시 변수 굳이 필요하진 않음
+    string _error;
+
+    private async Task LoginProc()
+    {
+        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, Username));
+        identity.AddClaim(new Claim(ClaimTypes.Name, Username));
+        identity.AddClaim(new Claim(ClaimTypes.Role, "Administrator"));
+
+        var principal = new ClaimsPrincipal(identity);
+
+        try
+        {
+            await httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+            {
+                IsPersistent = false, //로그인 쿠키 영속성 (브라우저 종료시 유지) 여부
+                ExpiresUtc = DateTime.UtcNow.AddDays(7), //7일간 미접속시 쿠키 만료
+                AllowRefresh = true, //갱신여부
+                RedirectUri = "/"
+            });
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}

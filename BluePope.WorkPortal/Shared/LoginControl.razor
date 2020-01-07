@@ -1,25 +1,17 @@
 ﻿@page "/loginControl"
+
 <AuthorizeView>
     <Authorized>
         <b>Hello, @context.User.Identity.Name!</b>
-        <a class="ml-md-auto btn btn-primary"
-           href="/logout?returnUrl=/"
-           target="_top">Logout</a>
+        <a class="ml-md-auto btn btn-primary" href="/api/logout">Logout</a>
     </Authorized>
     <NotAuthorized>
-        <input type="text"
-               placeholder="User Name"
-               @bind="@Username" />
-        &nbsp;&nbsp;
-        <input type="password"
-               placeholder="Password"
-               @bind="@Password" />
-        <a class="ml-md-auto btn btn-primary"
-           href="/login?paramUsername=@Username&paramPassword=@Password"
-           target="_top">Login</a>
+        <form method="post" action="/api/login">
+            <input type="text" placeholder="User Name" name="username" />
+            &nbsp;&nbsp;
+            <input type="password" placeholder="Password" name="password" />
+
+            <button type="submit" class="ml-md-auto btn btn-primary">Login</button>
+        </form>
     </NotAuthorized>
 </AuthorizeView>
-@code {
-    string Username = "";
-    string Password = "";
-}
