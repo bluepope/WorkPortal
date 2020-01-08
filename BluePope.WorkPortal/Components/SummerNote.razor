@@ -2,7 +2,6 @@
 @inject IJSRuntime js
 
 <textarea @ref="editor" id="@Id" class="@Class" @bind="@Contents"></textarea>
-<button class="btn btn-sm btn-primary" @onclick="OnContentUpdated">Test</button>
 @code {
     ElementReference editor;
 
@@ -12,8 +11,20 @@
     [Parameter]
     public string Class { get; set; }
 
+    string _component;
     [Parameter]
-    public string Contents { get; set; }
+    public string Contents
+    {
+        get => _component;
+        set
+        {
+            if (_component == value)
+                return;
+
+            _component = value;
+            _ = OnContentUpdated();
+        }
+    }
 
     [Parameter]
     public EventCallback<string> ContentsChanged { get; set; }
@@ -28,11 +39,8 @@
 
     async Task OnContentUpdated()
     {
-        //this.Contents = await js.InvokeAsync<string>("BlazorSummerNote.GetContents", new object[] { editor });
         if (ContentsChanged.HasDelegate)
-        {
             await ContentsChanged.InvokeAsync(this.Contents);
-        }
     }
 
     public void Dispose()

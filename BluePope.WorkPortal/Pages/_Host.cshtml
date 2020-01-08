@@ -27,11 +27,11 @@
         }
         window.BlazorSummerNote = {
             Create: function (obj) {
-                return;
                 $(obj).summernote({
                     callbacks: {
                         onChange: function (contents) {
-                            $(obj).html(contents);
+                            obj.value = contents;
+                            obj.dispatchEvent(new Event('change'));
                         }
                     }
                 });
