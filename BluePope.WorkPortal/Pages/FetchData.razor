@@ -26,6 +26,7 @@ else
                 <th>Temp. (C)</th>
                 <th>Temp. (F)</th>
                 <th>Summary</th>
+                <th>File</th>
                 <th></th>
             </tr>
         </thead>
@@ -46,6 +47,16 @@ else
                 </td>
                 <td>@item.TemperatureF</td>
                 <td>@item.Summary</td>
+                <td>
+                    @if (item.isEdit)
+                    {
+                        <input @bind-value="item.File1" type="file"  />
+                    }
+                    else
+                    {
+                        @item.File1?.Name
+                    }
+                </td>
                 <td>
                     @if (item.isEdit)
                     {
