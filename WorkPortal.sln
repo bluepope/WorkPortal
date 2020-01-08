@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{B15756A3-8FD
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluePope.WorkPortal", "BluePope.WorkPortal\BluePope.WorkPortal.csproj", "{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BluePope.WorkPortal", "BluePope.WorkPortal\BluePope.WorkPortal.csproj", "{EA7ED651-E4CC-4444-80E7-24B6F0F292BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

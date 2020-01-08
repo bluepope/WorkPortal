@@ -2,11 +2,10 @@
 
 @using BluePope.WorkPortal.Data
 
+@inject IJSRuntime jSRuntime
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
-
-
 <AuthorizeView>
     <Authorized>
         @context.User.Identity.Name
@@ -46,11 +45,16 @@ else
                     }
                 </td>
                 <td>@item.TemperatureF</td>
-                <td>@item.Summary</td>
                 <td>
                     @if (item.isEdit)
                     {
-                        <input @bind-value="item.File1" type="file"  />
+                        <SummerNote @bind-Contents="@item.Summary" />
+                    }
+                    <div>@item.Summary</div>
+                </td>
+                <td>
+                    @if (item.isEdit)
+                    {
                     }
                     else
                     {
@@ -71,9 +75,13 @@ else
             }
         </tbody>
     </table>
+
+    <button class="btn btn-sm btn-primary" @onclick="RunJs">Test</button>
+    <div>@_msg</div>
 }
 
 @code {
+    string _msg = "";
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
@@ -88,5 +96,12 @@ else
 
         //item ReLoad~~~ 
         item.isEdit = false;
+    }
+
+    private async Task RunJs()
+    {
+        _msg = await jSRuntime.InvokeAsync<string>("GetJsTest", new object[] { "test data" });
+
+        StateHasChanged();
     }
 }

@@ -1,0 +1,43 @@
+﻿@implements IDisposable
+@inject IJSRuntime js
+
+<textarea @ref="editor" id="@Id" class="@Class" @bind="@Contents"></textarea>
+<button class="btn btn-sm btn-primary" @onclick="OnContentUpdated">Test</button>
+@code {
+    ElementReference editor;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
+    [Parameter]
+    public string Contents { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ContentsChanged { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.InvokeVoidAsync("BlazorSummerNote.Create", new object[] { editor });
+        }
+    }
+
+    async Task OnContentUpdated()
+    {
+        //this.Contents = await js.InvokeAsync<string>("BlazorSummerNote.GetContents", new object[] { editor });
+        if (ContentsChanged.HasDelegate)
+        {
+            await ContentsChanged.InvokeAsync(this.Contents);
+        }
+    }
+
+    public void Dispose()
+    {
+        OnContentUpdated().Wait();
+        _ = js.InvokeVoidAsync("BlazorSummerNote.Destroy", new object[] { editor });
+    }
+}
