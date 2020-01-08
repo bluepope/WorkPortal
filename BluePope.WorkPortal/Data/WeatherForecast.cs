@@ -4,6 +4,7 @@ namespace BluePope.WorkPortal.Data
 {
     public class WeatherForecast
     {
+        public bool isEdit { get; set; } = false;
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }

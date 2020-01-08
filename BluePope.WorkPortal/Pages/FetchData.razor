@@ -1,7 +1,6 @@
 ﻿@page "/fetchdata"
 
 @using BluePope.WorkPortal.Data
-@inject WeatherForecastService ForecastService
 
 <h1>Weather forecast</h1>
 
@@ -27,17 +26,37 @@ else
                 <th>Temp. (C)</th>
                 <th>Temp. (F)</th>
                 <th>Summary</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var item in forecasts)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+            <tr>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>
+                    @if (item.isEdit)
+                    {
+                        <input @bind="item.TemperatureC" class="form-control" type="text" />
+                    }
+                    else
+                    {
+                        @item.TemperatureC
+                    }
+                </td>
+                <td>@item.TemperatureF</td>
+                <td>@item.Summary</td>
+                <td>
+                    @if (item.isEdit)
+                    {
+                        <button class="btn btn-sm btn-primary" @onclick="() => Save(item)">Save</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-info" @onclick="() => { item.isEdit = true; }">Edit</button>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -48,6 +67,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = await new WeatherForecastService().GetForecastAsync(DateTime.Now);
+    }
+
+    void Save(WeatherForecast item)
+    {
+        //Processing ~~~~~
+        //End
+
+        //item ReLoad~~~ 
+        item.isEdit = false;
     }
 }

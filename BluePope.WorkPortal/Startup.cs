@@ -51,21 +51,13 @@ namespace BluePope.WorkPortal
                 //options.EventsType = typeof(CustomCookieAuthenticationEvents);
             });
 
-            // BLAZOR COOKIE Auth Code (end)
-            // ******
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
-            // ******
-            // BLAZOR COOKIE Auth Code (begin)
-            // From: https://github.com/aspnet/Blazor/issues/1554
-            // HttpContextAccessor
+
             services.AddHttpContextAccessor();
             services.AddScoped<HttpContextAccessor>();
             services.AddHttpClient();
             services.AddScoped<HttpClient>();
-            // BLAZOR COOKIE Auth Code (end)
-            // ******
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
